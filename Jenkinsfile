@@ -4,10 +4,9 @@ pipeline {
         maven 'maven'
         jdk 'jdk'
     }
-    stages{
-        stage('Build'){
-            steps {
-                sh 'mvn clean package'
+    stage('Build'){
+        steps {
+            sh 'mvn clean package'
             }
             post {
                 success {
@@ -21,5 +20,25 @@ pipeline {
                 build job: 'deploy to staging'
             }
         }
+
+        stage ('Deploy to Production'){
+            steps{
+                timeout(time:180, unit:'SECONDS'){
+                    input message:'Approve PRODUCTION Deployment?'
+                }
+
+                build job: 'Deploy to prod'
+            }
+            post {
+                success {
+                    echo 'Code deployed to Production.'
+                }
+
+                failure {
+                    echo ' Deployment failed.'
+                }
+            }
+        }
+
     }
 }
