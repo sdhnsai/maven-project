@@ -1,12 +1,14 @@
 pipeline {
     agent any
+    
     tools {
         maven 'maven'
         jdk 'jdk'
     }
-    stage('Build'){
-        steps {
-            sh 'mvn clean package'
+    stages{
+        stage('Build'){
+            steps {
+                sh 'mvn clean package'
             }
             post {
                 success {
@@ -39,4 +41,7 @@ pipeline {
                 }
             }
         }
-     }
+
+
+    }
+}
