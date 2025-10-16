@@ -62,7 +62,31 @@
               <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
 
-            <plugin>
+
+            
+           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>3.4.1</version> <!-- Use a recent version -->
+            <executions>
+                <execution>
+                    <id>enforce-maven-version</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireMavenVersion>
+                                <version>[3.2.5,)</version> <!-- Example: Require Maven 3.2.5 or higher -->
+                            </requireMavenVersion>
+                        </rules>
+                        <fail>true</fail>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    
+           <plugin>
               <artifactId>maven-pmd-plugin</artifactId>
             </plugin>
 
